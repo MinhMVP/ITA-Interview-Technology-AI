@@ -31,6 +31,7 @@ import PostJob from '../pages/Recruiter/PostJob';
 import BlogManagement from '../pages/Recruiter/BlogManagement';
 import PostBlog from '../pages/Recruiter/PostBlog';
 import CompanyProfile from '../pages/Recruiter/CompanyProfile';
+import ApplicationManagement from '../pages/Recruiter/ApplicationManagement';
 import RecruiterRegistration from '../pages/Recruiter/RecruiterRegistration';
 
 // Mentor Components
@@ -57,6 +58,7 @@ import PrivacyPolicy from '../pages/Public/PrivacyPolicy';
 import MentorDirectory from '../pages/User/MentorDirectory';
 import BookMentor from '../pages/User/BookMentor';
 import MyBookings from '../pages/User/MyBookings';
+import MyApplications from '../pages/User/MyApplications';
 
 // Interview Pages
 import InterviewLanding from '../pages/Interview/InterviewLanding';
@@ -119,6 +121,7 @@ const AppRoutes = () => {
       <Route path="/mentors" element={<ProtectedRoute><MentorDirectory /></ProtectedRoute>} />
       <Route path="/mentors/book/:id" element={<ProtectedRoute><BookMentor /></ProtectedRoute>} />
       <Route path="/my-bookings" element={<ProtectedRoute><MyBookings /></ProtectedRoute>} />
+      <Route path="/my-applications" element={<ProtectedRoute><MyApplications /></ProtectedRoute>} />
 
       {/* Protected Recruiter Routes */}
       <Route path="/recruiter-register" element={<RecruiterRegistration />} />
@@ -130,6 +133,7 @@ const AppRoutes = () => {
       <Route path="/recruiter/blogs" element={<ProtectedRoute><BlogManagement /></ProtectedRoute>} />
       <Route path="/recruiter/blogs/new" element={<ProtectedRoute><PostBlog /></ProtectedRoute>} />
       <Route path="/recruiter/blogs/edit/:id" element={<ProtectedRoute><PostBlog /></ProtectedRoute>} />
+      <Route path="/recruiter/applications" element={<ProtectedRoute><ApplicationManagement /></ProtectedRoute>} />
 
       {/* Mentor Registration (public, requires login) */}
       <Route path="/mentor-register" element={<MentorRegistration />} />

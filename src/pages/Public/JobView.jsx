@@ -1,18 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../../utils/supabaseClient';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Send, Briefcase, DollarSign, MapPin, Clock, Calendar } from 'lucide-react';
+import { ArrowLeft, Send, Briefcase, DollarSign, MapPin, Clock, Calendar, Upload } from 'lucide-react';
+import JobApplyModal from './JobApplyModal';
 
 const JobView = () => {
   const { jobId } = useParams();
+  const navigate = useNavigate();
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showApplyModal, setShowApplyModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     fetchJob();
+    checkAuth();
   }, [jobId]);
+
+  const checkAuth = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    setIsLoggedIn(!!session);
+  };
+
+  const handleApplyClick = () => {
+    if (!isLoggedIn) {
+      navigate('/login');
+      return;
+    }
+    setShowApplyModal(true);
+  };
 
   const fetchJob = async () => {
     try {
@@ -32,17 +50,28 @@ const JobView = () => {
           .from('companies')
           .select('id, company_name, email, logo_url')
           .eq('recruiter_id', jobData.recruiter_id)
-          .single();
+          .maybeSingle();
           
         if (companyData) companyInfo = companyData;
+
+        let contactEmail = companyInfo.email;
+        if (!contactEmail && jobData.recruiter_id) {
+          const { data: recProfile } = await supabase
+            .from('profiles')
+            .select('email')
+            .eq('id', jobData.recruiter_id)
+            .maybeSingle();
+          if (recProfile?.email) contactEmail = recProfile.email;
+        }
 
         setJob({
           id: jobData.id,
           title: jobData.title,
+          recruiterId: jobData.recruiter_id,
           companyId: companyInfo.id,
-          company: companyInfo.company_name,
+          company: companyInfo.company_name || 'Doanh nghiệp',
           companyLogo: companyInfo.logo_url,
-          contactEmail: companyInfo.email,
+          contactEmail: contactEmail,
           type: jobData.job_type,
           location: jobData.location,
           salary: jobData.salary_range,
@@ -209,29 +238,40 @@ const JobView = () => {
           <div style={{ padding: '3rem', borderTop: '1px solid var(--border-color)', textAlign: 'center', background: 'var(--color-surface-alt)' }}>
             <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--color-charcoal)', fontFamily: 'var(--font-heading)', textTransform: 'uppercase', letterSpacing: '-0.5px' }}>Cách thức ứng tuyển</h3>
             <p style={{ marginBottom: '2rem', color: 'var(--color-text-secondary)', fontSize: '1rem', maxWidth: '600px', margin: '0 auto 2rem' }}>
-              Để ứng tuyển cho vị trí này, vui lòng gửi trực tiếp CV và Portfolio (nếu có) của bạn về email của doanh nghiệp.
+              Để ứng tuyển cho vị trí này, vui lòng nộp CV trực tiếp trên hệ thống. Doanh nghiệp sẽ xem xét và phản hồi kết quả.
             </p>
-            {job.contactEmail ? (
-              <a 
-                href={`mailto:${job.contactEmail}?subject=Ứng tuyển vị trí ${job.title}`} 
+            {job.status !== 'closed' ? (
+              <button
+                onClick={handleApplyClick}
                 style={{ 
                   display: 'inline-flex', alignItems: 'center', gap: '0.8rem',
-                  textDecoration: 'none', background: '#EA580C', color: 'white',
+                  background: '#EA580C', color: 'white',
                   padding: '1rem 2rem', borderRadius: '50px', fontWeight: 600, fontSize: '1.05rem',
-                  boxShadow: '0 4px 15px rgba(234, 88, 12, 0.3)', transition: 'all 0.3s ease'
+                  boxShadow: '0 4px 15px rgba(234, 88, 12, 0.3)', transition: 'all 0.3s ease',
+                  border: 'none', cursor: 'pointer'
                 }}
                 onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(234, 88, 12, 0.4)'; }}
                 onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 15px rgba(234, 88, 12, 0.3)'; }}
               >
-                Gửi Email Ứng Tuyển <Send size={18} />
-              </a>
+                Nộp CV Ứng Tuyển <Upload size={18} />
+              </button>
             ) : (
-              <span style={{ color: '#d9534f', fontWeight: 600, padding: '1rem', background: '#ffebee', borderRadius: '12px', display: 'inline-block' }}>Doanh nghiệp chưa cung cấp email liên hệ.</span>
+              <span style={{ color: '#d9534f', fontWeight: 600, padding: '1rem', background: '#ffebee', borderRadius: '12px', display: 'inline-block' }}>Vị trí này đã ngừng tuyển dụng.</span>
             )}
           </div>
 
         </motion.div>
       </div>
+
+      {/* Job Apply Modal */}
+      <JobApplyModal
+        isOpen={showApplyModal}
+        onClose={() => setShowApplyModal(false)}
+        job={job}
+        onSuccess={() => {
+          // Optionally refresh or show success state
+        }}
+      />
     </motion.div>
   );
 };

@@ -5,7 +5,6 @@ import './CardStackSection.css';
 const videoProject3 = "https://hitcsegxyxvxpyusfyge.supabase.co/storage/v1/object/public/videos/Video_Project_3.mp4";
 const videoProject4 = "https://hitcsegxyxvxpyusfyge.supabase.co/storage/v1/object/public/videos/Video_Project_4.mp4";
 const videoProject7 = "https://hitcsegxyxvxpyusfyge.supabase.co/storage/v1/object/public/videos/Video_Project_7.mp4";
-
 gsap.registerPlugin(ScrollTrigger);
 
 const steps = [

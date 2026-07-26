@@ -300,45 +300,6 @@ const PostBlog = () => {
               </div>
             </div>
 
-            {/* Video URL */}
-            <div>
-              <label style={labelStyle}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  <Play size={16} color="#FF0000" /> Link Video YouTube (tùy chọn)
-                </span>
-              </label>
-              <input
-                type="url"
-                name="video_url"
-                value={formData.video_url}
-                onChange={handleChange}
-                style={inputStyle}
-                placeholder="https://www.youtube.com/watch?v=..."
-              />
-              {/* Video Preview */}
-              {embedUrl && (
-                <div style={{
-                  marginTop: '0.75rem',
-                  borderRadius: '12px',
-                  overflow: 'hidden',
-                  border: '1px solid var(--border-color)',
-                  aspectRatio: '16/9',
-                  maxHeight: '280px',
-                }}>
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src={embedUrl}
-                    title="Video Preview"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    style={{ display: 'block' }}
-                  />
-                </div>
-              )}
-            </div>
-
             {/* Tags */}
             <div>
               <label style={labelStyle}>Thẻ (Tags) — Phân cách bằng dấu phẩy</label>

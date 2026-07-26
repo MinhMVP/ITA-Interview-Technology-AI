@@ -58,6 +58,7 @@ const Header = () => {
           { to: '/mentors', label: 'Tìm Mentors', desc: 'Kết nối với mentor chuyên nghiệp' },
           { to: '/blogs', label: 'Blog', desc: 'Chia sẻ kinh nghiệm phỏng vấn' },
           { to: '/jobs', label: 'Việc làm', desc: 'Tìm kiếm cơ hội nghề nghiệp' },
+          { to: '/my-applications', label: 'Hồ sơ ứng tuyển', desc: 'Theo dõi trạng thái CV đã nộp' },
           { to: '/mentor-register', label: 'Đăng ký Mentor', desc: 'Chia sẻ kiến thức của bạn' },
           { to: '/recruiter-register', label: 'Dành cho doanh nghiệp', desc: 'Đăng tin tuyển dụng' }
         ]

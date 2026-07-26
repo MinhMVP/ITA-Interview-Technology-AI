@@ -18,6 +18,9 @@ CREATE TABLE profiles (
     email TEXT UNIQUE NOT NULL,
     full_name TEXT,
     avatar_url TEXT,
+    phone TEXT,
+    address TEXT,
+    dob DATE,
     role TEXT CHECK (role IN ('candidate', 'recruiter', 'admin')) DEFAULT 'candidate',
     plan TEXT DEFAULT 'Free', -- Cột lưu gói dịch vụ hiện tại (Free, Pro, Premium)
     status TEXT CHECK (status IN ('active', 'pending', 'banned')) DEFAULT 'active', -- Recruiter mới đăng ký sẽ là 'pending'

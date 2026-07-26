@@ -138,16 +138,74 @@ const Profile = () => {
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     setProfileMessage({ type: '', text: '' });
+
+    // === VALIDATION 1: Số điện thoại tuân theo UC-05 (Regex 10-11 chữ số Việt Nam: 03,05,07,08,09 hoặc +84) ===
+    if (phone && phone.trim() !== '') {
+      const phoneTrimmed = phone.trim();
+      const phoneRegex = /^(0|\+84)(3|5|7|8|9)[0-9]{8}$/;
+      if (!phoneRegex.test(phoneTrimmed)) {
+        return setProfileMessage({
+          type: 'error',
+          text: 'Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại Việt Nam (VD: 0987654321 hoặc +84987654321).'
+        });
+      }
+    }
+
+    // === VALIDATION 2: Ngày sinh & Độ tuổi tuân theo UC-07 (Tuổi >= 15 cho Candidate, >= 18 cho Recruiter, DOB < CURRENT_DATE) ===
+    if (dob && dob.trim() !== '') {
+      const birthDate = new Date(dob);
+      const today = new Date();
+      if (isNaN(birthDate.getTime()) || birthDate >= today) {
+        return setProfileMessage({
+          type: 'error',
+          text: 'Ngày sinh không thể là ngày hôm nay hoặc ở tương lai.'
+        });
+      }
+
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      const userRole = profile?.role || 'candidate';
+      const minAge = userRole === 'recruiter' ? 18 : 15;
+      if (age < minAge) {
+        return setProfileMessage({
+          type: 'error',
+          text: `Bạn phải từ ${minAge} tuổi trở lên (${userRole === 'recruiter' ? 'Nhà tuyển dụng' : 'Ứng viên'}).`
+        });
+      }
+    }
+
     setLoading(true);
 
     try {
-      const { error } = await updateProfile({ 
+      // 1. Cập nhật user_metadata trong Supabase Auth
+      const { error: authError } = await updateProfile({ 
         full_name: fullName,
         dob: dob,
         phone: phone,
         address: address
       });
-      if (error) throw error;
+      if (authError) throw authError;
+
+      // 2. Đồng bộ trực tiếp dữ liệu vào bảng public.profiles trong CSDL PostgreSQL
+      const { error: profileDbError } = await supabase
+        .from('profiles')
+        .update({
+          full_name: fullName,
+          dob: dob || null,
+          phone: phone || null,
+          address: address || null,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', user.id);
+
+      if (profileDbError) {
+        console.warn('Cảnh báo đồng bộ public.profiles:', profileDbError.message);
+      }
+
       setProfileMessage({ type: 'success', text: 'Cập nhật thông tin thành công!' });
     } catch (err) {
       setProfileMessage({ type: 'error', text: err.message || 'Lỗi khi cập nhật thông tin.' });
@@ -247,6 +305,7 @@ const Profile = () => {
                   id="dob"
                   className="auth-input-no-border"
                   value={dob}
+                  max={new Date().toISOString().split('T')[0]}
                   onChange={(e) => setDob(e.target.value)}
                 />
               </div>

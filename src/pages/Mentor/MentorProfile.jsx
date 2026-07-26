@@ -120,6 +120,18 @@ const MentorProfile = () => {
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     setProfileMessage({ type: '', text: '' });
+
+    if (phone && phone.trim() !== '') {
+      const phoneTrimmed = phone.trim();
+      const phoneRegex = /^(0|\+84)(3|5|7|8|9)[0-9]{8}$/;
+      if (!phoneRegex.test(phoneTrimmed)) {
+        return setProfileMessage({
+          type: 'error',
+          text: 'Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại Việt Nam 10 chữ số (VD: 0987654321 hoặc +84987654321).'
+        });
+      }
+    }
+
     setLoading(true);
 
     try {

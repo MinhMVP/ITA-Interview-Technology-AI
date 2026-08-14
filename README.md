@@ -7,6 +7,7 @@
 
 ITA Web là một nền tảng đột phá kết hợp **Trí tuệ nhân tạo (AI)** và **Hệ sinh thái Cố vấn (Mentoring)**, giúp các ứng viên ngành IT tối ưu hóa lộ trình sự nghiệp, nâng cấp CV đạt chuẩn ATS, luyện phỏng vấn thực tế và kết nối 1-1 với các chuyên gia trong ngành.
 
+Thành viên tham gia gồm : Nguyễn Anh Minh, Nguyễn Duy, Trần Viết Duy Huy, Nguyễn Quang Minh, Nguyễn Quốc Tuấn
 ---
 
 ## 🌟 Các tính năng cốt lõi (Core Features)

@@ -79,31 +79,6 @@ Thành viên tham gia gồm : Nguyễn Anh Minh, Nguyễn Duy, Trần Viết Duy
 
 ---
 
-##  Hướng dẫn Cài đặt & Chạy dự án (Getting Started)
 
-**1. Clone dự án về máy**
-```bash
-git clone <your-github-repo-url>
-cd project-rbl-team-2
-```
-
-**2. Cài đặt các gói phụ thuộc**
-```bash
-npm install
-```
-
-**3. Thiết lập biến môi trường (.env)**
-Tạo file `.env` ở thư mục gốc và cung cấp các khóa API cần thiết:
-```env
-# Supabase
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-
-# AI Keys (Có thể thêm nhiều key từ 1 đến 5 để kích hoạt Auto-Rotation)
-VITE_GEMINI_API_KEY_1=your_gemini_key_1
-VITE_GROQ_API_KEY_1=your_groq_key_1
-# TTS & Speech
-VITE_ELEVENLABS_API_KEY=your_elevenlabs_key
-```
 
 *Dự án được xây dựng với mục tiêu giúp sinh viên và ứng viên IT vượt qua nỗi sợ phỏng vấn, sở hữu CV ấn tượng và nhận được sự hướng dẫn tận tình từ các chuyên gia thực chiến.* 🎓💼

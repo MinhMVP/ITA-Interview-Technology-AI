@@ -1,4 +1,4 @@
-# 🚀 ITA Web - AI-Powered Career Prep & Mentoring Platform
+#  ITA Web - AI-Powered Career Prep & Mentoring Platform
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
@@ -12,42 +12,42 @@ Web demo đã deploy : https://itaphongvan.vercel.app/
 Thành viên tham gia gồm : Nguyễn Anh Minh, Nguyễn Duy, Trần Viết Duy Huy, Nguyễn Quang Minh, Nguyễn Quốc Tuấn
 ---
 
-## 🌟 Các tính năng cốt lõi (Core Features)
+##  Các tính năng cốt lõi (Core Features)
 
-### 1. 🧠 Phân tích & Chấm điểm CV bằng AI (AI CV Analysis)
+### 1.  Phân tích & Chấm điểm CV bằng AI (AI CV Analysis)
 - **Đọc file đa định dạng:** Trích xuất văn bản từ PDF (bằng `pdf.js-dist` kết hợp thuật toán tính khoảng cách) và Word DOCX (bằng `mammoth.js`).
 - **Lọc CV rác:** Thuật toán tiền xử lý giúp phát hiện CV trống, CV đùa cợt trước khi gọi AI để tối ưu hóa tài nguyên.
 - **AI Đóng vai Chuyên gia tuyển dụng:** Sử dụng sức mạnh của **Google Gemini 1.5 Flash** và **Groq Llama 3.3 70B** để chấm điểm ATS, phân tích dự án, kỹ năng và mức độ phù hợp với JD (Job Description).
 - **Auto-Rotation API Keys:** Cơ chế tự động quay vòng (Round-robin) các API Keys và Fallback thông minh giúp hệ thống không bao giờ bị sập (lỗi 429 Rate Limit) khi có lượng truy cập lớn.
 
-### 2. 👨‍🏫 Hệ sinh thái Cố vấn IT (Mentor Booking System)
+### 2.  Hệ sinh thái Cố vấn IT (Mentor Booking System)
 - **Mentor Portal:** Không gian làm việc riêng biệt cho phép chuyên gia (Mentor) thiết lập lịch rảnh (Available time slots), quản lý các buổi hẹn, đăng bài viết chuyên môn (Tech Blog) và xem phản hồi (Reviews).
 - **Mentee/User Portal:** Danh bạ tìm kiếm Mentor theo kỹ năng công nghệ. Cho phép học viên đặt lịch (Booking) với thao tác đơn giản, chống trùng lịch an toàn.
 - **Nhắc nhở tự động:** Tích hợp nhắc lịch (Booking Reminder) giúp cả học viên và cố vấn không bỏ lỡ buổi Mentoring.
 - **Bảo mật phân quyền:** Hệ thống Guard Routing (`MentorRoute`, `ProtectedRoute`) ngăn chặn truy cập trái phép vào Dashboard quản lý.
 
-### 3. 🎙️ Luyện Phỏng Vấn Mock Interview với AI
+### 3.  Luyện Phỏng Vấn Mock Interview với AI
 - **Nhận diện giọng nói (Speech-to-Text):** Tích hợp Whisper AI và thư viện nhận diện giọng nói cho phép ứng viên trả lời phỏng vấn trực tiếp bằng micro.
 - **Phản hồi bằng giọng nói (Text-to-Speech):** AI phỏng vấn viên trả lời lại bằng âm thanh nhờ tích hợp đa dạng API TTS: Google Cloud TTS, ElevenLabs, Itera.
 - **Đánh giá thời gian thực:** Đánh giá độ tự tin, tính chính xác về mặt kỹ thuật của câu trả lời.
 
 ---
 
-## 🛠️ Công nghệ sử dụng (Tech Stack)
+##  Công nghệ sử dụng (Tech Stack)
 
-### 🎨 Frontend & UI/UX
+###  Frontend & UI/UX
 - **Core:** React 19, Vite
 - **Routing:** React Router Dom v7
 - **Animations & 3D:** Framer Motion, GSAP, Lenis (Smooth Scrolling), Three.js (@react-three/fiber, @react-three/drei) cho các hiệu ứng đồ họa 3D ấn tượng.
 - **Utilities:** React Quill (Rich Text Editor), Lucide React (Icons), html2canvas, jspdf.
 
-### ⚙️ Backend & Cơ sở dữ liệu
+###  Backend & Cơ sở dữ liệu
 - **BaaS:** Supabase
 - **Database:** PostgreSQL (Lưu trữ lịch Mentor, CV ứng viên, đánh giá, v.v.)
 - **Auth & Storage:** Supabase Authentication & Supabase Storage (Lưu trữ file CV, Avatar).
 - **Triggers & Functions:** Supabase Edge Functions cho các luồng webhook tự động.
 
-### 🤖 Trí Tuệ Nhân Tạo (AI / ML)
+###  Trí Tuệ Nhân Tạo (AI / ML)
 - `@google/genai` (Google Gemini SDK)
 - Groq API (Llama 3.3)
 - Các công cụ bóc tách: `pdfjs-dist` (PDF), `mammoth` (DOCX).
@@ -79,7 +79,7 @@ Thành viên tham gia gồm : Nguyễn Anh Minh, Nguyễn Duy, Trần Viết Duy
 
 ---
 
-## 🚀 Hướng dẫn Cài đặt & Chạy dự án (Getting Started)
+##  Hướng dẫn Cài đặt & Chạy dự án (Getting Started)
 
 **1. Clone dự án về máy**
 ```bash
